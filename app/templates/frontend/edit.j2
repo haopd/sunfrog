@@ -1,0 +1,40 @@
+{% extends "layouts/html.j2" %}
+{% block page_body  %}
+  <section>
+    <blockquote>
+      <h4>Thêm url</h4>
+    </blockquote>
+  </section>
+  {% import "forms.j2" as forms %}
+  <div class="container">
+  {% include "_flashes.j2" %}
+    <form action="" method="post">
+    <div class="row">
+      <div class="col l8 m12 s12">
+        {{ forms.input_row(
+              'url_input',
+              label='Url đầu vào',
+              value=form_data.url_input or url.url_output,
+              error=form_errors.url_input,
+              type='text') }}
+        {{ forms.input_row(
+              'url_output',
+              label='Url chuyển tiếp',
+              value=form_data.url_output or url.url_output,
+              error=form_errors.url_output,
+              type='text') }}
+        <div class="row center">
+          <button
+              type="submit"
+              name = 'add'
+              class="btn"
+          >
+            Sửa <i class="material-icons right">send</i></button>
+        </div>
+      </div>
+    </div>
+    </form>
+
+  </div>
+
+{% endblock %}
