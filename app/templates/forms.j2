@@ -1,0 +1,145 @@
+{% macro input(name, label, value='', error='', success='', type='text', grid='s12', required=True, maxlength=0, input_class='', tooltip='') %}
+  <div class="input-field col {{ grid }}{{ ' tooltipped' if tooltip else '' }}"
+      {% if tooltip %}
+       data-delay="50"
+       data-tooltip="{{ tooltip }}"
+      {% endif %}
+  >
+    <input id="{{ name }}" type="{{ type }}"
+           class="validate{{ ' invalid' if error else '' }} {{ input_class  }}"
+           name="{{ name }}"
+           value="{{ value or ''}}"
+           {% if maxlength %}maxlength="{{ maxlength }}"{% endif %}
+           {% if required %}required{% endif %}
+    >
+    <label for="{{ name }}"
+           {% if error and value %}data-error="{{ error }}"{% endif %}
+           {% if success %}data-success="{{ success }}"{% endif %}
+    >
+      {{ label }}
+    </label>
+  </div>
+{% endmacro %}
+
+{% macro input_row(name, label, value='', error='', success='', type='text', input_class='', required=True, tooltip='', grid = 's12') %}
+  <div class="row">
+    {{ input(
+       name,
+       label,
+       value=value,
+       error=error,
+       success=success,
+       type=type, grid=grid, required=required,
+       tooltip=tooltip,
+       input_class=input_class) }}
+  </div>
+{% endmacro %}
+
+{% macro captcha(name='recaptcha', error='', grid='s12') %}
+  <div class="col {{ grid }}">
+    <div
+        class="g-recaptcha"
+        data-sitekey="{{ config.RECAPTCHA_SITE_KEY }}"
+        data-theme="light"
+        data-type="image"
+        name="{{ name }}">
+    </div>
+    {% if error %}
+      <div class="red-text input-field-error">
+        {{ error }}
+      </div>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% macro captcha_row(name='recaptcha', error='', grid = 's12') %}
+  <div class="row">
+    {{ captcha(name, error, grid) }}
+  </div>
+{% endmacro %}
+
+{% macro select(name, label, value='', options=[], error='', grid='s12', input_class='', field_class='') %}
+  <div class="input-field col {{ grid }} {{ field_class }}">
+    <select id="{{ name }}" name="{{ name }}">
+      <option value="" disabled selected>{{label}}</option>
+      {% for ov, ol in options %}
+        <option value="{{ ov }}"{% if ov == value %} selected{% endif %}>{{ol}}</option>
+      {% endfor %}
+
+    </select>
+  </div>
+  {% if error %}
+    <div class="col {{ grid }} input-field-error">
+      {{ error }}
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro select_row(name, label, value='', options=[], error='', grid='s12', input_class='') %}
+  <div class="row">
+    {{ select(name, label, value,
+        options=options,
+        error=error,
+        grid=grid,
+        input_class=input_class
+        ) }}
+  </div>
+{% endmacro %}
+
+
+{% macro input_field_error(name, error, grid='s12') %}
+  {% if error %}
+    <div class="col {{ grid }} input-field-error">
+      {{ error }}
+    </div>
+  {% endif %}
+{% endmacro %}
+
+
+{% macro checkbox(name, label, checked=False, filled_in=False) %}
+  <p>
+    <input type="checkbox"
+           {% if filled_in %}class="filled-in"{% endif %}
+           id="{{ name }}"
+           {% if checked %}checked="checked"{% endif %}
+           name="{{ name }}"
+    />
+    <label for="{{ name }}">{{ label }}</label>
+  </p>
+{% endmacro %}
+
+
+{% macro datepicker_row(name, label, selectYears=80, format='dd-mm-yyyy',
+  value='', grid='s12') %}
+  <div class="row">
+    <div class="col {{ grid }}">
+      <label for="{{ name }}">{{ label }}</label>
+      <input type="date" class="datepicker" name="{{ name }}">
+    </div>
+    <script>
+      $('.datepicker').pickadate({
+        monthsFull: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
+          'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+          'Tháng 12'],
+        monthsShort: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5',
+          'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11',
+          'Tháng 12'],
+        weekdaysFull: ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6',
+          'Thứ 7'],
+        weekdaysShort: ['CN', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6',
+          'Thứ 7'],
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: {{ selectYears }}, // Creates a dropdown of 15 years to control year
+        format: '{{ format }}',
+        {% if value %}
+          onStart: function() {
+            var dob_string ='{{ value }}'.split('-');
+            var dob = new Date(dob_string[0], dob_string[1] - 1, dob_string[2]);
+            $('.datepicker').pickadate('picker').set('select', dob);
+
+          }
+        {% endif %}
+      });
+    </script>
+  </div>
+{% endmacro %}

@@ -1,0 +1,16 @@
+{% set flashes = session.get_flashes() %}
+
+{% if flashes %}
+  {% for value, level in flashes %}
+    {% if level == 'error' %}
+      <div class="card-panel center-align red accent-2">
+        <div >{{ value }}</div>
+      </div>
+    {% else %}
+      <div class="card-panel center-align light-green lighten-2">
+        <div>{{ value }}</div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+{% endif %}
