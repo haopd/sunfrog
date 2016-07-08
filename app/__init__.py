@@ -93,9 +93,7 @@ webapp2_routes = [
 
 import app.route
 
-APP = webapp2.WSGIApplication(webapp2_routes, debug=True)
-
-
+APP = webapp2.WSGIApplication(webapp2_routes+app.route.webapp2_routes, debug=True)
 APP.config = webapp2.Config({
     'webapp2_extras.sessions': {
         'secret_key': 'YOUR_SECRET_KEY@1900100co',

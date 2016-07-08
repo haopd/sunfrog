@@ -1,5 +1,23 @@
 <nav>
-    <div class="nav-wrapper">
-        <a class="brand-logo" href="{{ uri_for('home') }}" style="margin-left: 5%; font-size: large">Welcome to VNP CRM</a>
+  <div class="row">
+    <div class="nav-wrapper col offset-s1">
+      <a href="{{ url_for('home') }}" class="brand-logo hide-on-med-and-down">
+        Url saver
+      </a>
     </div>
+    <div class="nav-wrapper col s6 offset-s6">
+      <form action="{{ url_for('home') }}">
+        <div class="input-field">
+          <input id="search" name="search"
+                 placeholder="Từ khóa search"
+                 pattern=".{3,}" type="search"
+                 value="{{ request.get('search', '') }}"
+          >
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+    </div>
+
+  </div>
 </nav>
