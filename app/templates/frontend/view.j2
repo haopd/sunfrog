@@ -19,12 +19,14 @@
 
     <tbody>
     {% for url in list_url %}
-      <tr>
-        <td>{{ url.url_input }}</td>
-        <td>{{ url.url_output }}</td>
-        <td>{{ url.time_created }}</td>
-        <td><a href="{{ url_for('url/view', url_id = url.key.id()) }}"><i class="material-icons">send</i></a></td>
-      </tr>
+      {% if url %}
+        <tr>
+          <td>{{ url.url_input }}</td>
+          <td>{{ url.url_output }}</td>
+          <td>{{ url.time_created }}</td>
+          <td><a href="{{ url_for('url/view', url_id = url.key.id()) }}"><i class="material-icons">send</i></a></td>
+        </tr>
+      {% endif %}
     {% endfor %}
     </tbody>
   </table>

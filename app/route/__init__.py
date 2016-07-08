@@ -5,8 +5,10 @@ import app
 import formencode
 from formencode import validators
 from controller import db
+from controller import url as urlz
 from google.appengine.api import search
 from google.appengine.ext import ndb
+import re
 
 __author__ = 'datpt'
 _logger = logging.getLogger(__name__)
@@ -21,16 +23,19 @@ class AddUrlForm(formencode.Schema):
 
 class ViewUrlHandler(app.BaseRequestHandler):
     def get(self):
+        search_results = []
         keyword_search = self.request.GET.get('search')
         index = search.Index(name='url_fulltextsearch')
-        query_string = 'url_input_search = %s OR url_output_search = %s' % \
-                       (keyword_search, keyword_search)
-        search_results = index.search(search.Query(
-            query_string=query_string,
-            options=search.QueryOptions(
-                limit=10
-            )
-        ))
+        if keyword_search:
+            input = re.sub(r'[^a-zA-Z0-9\n_&]', ' ', keyword_search)
+            query_string = 'url_input_search = %s OR url_output_search = %s' % \
+                           (input, input)
+            search_results = index.search(search.Query(
+                query_string=query_string,
+                options=search.QueryOptions(
+                    limit=10
+                )
+            ))
         list_ids = []
         list_url = []
         for result in search_results:
@@ -53,6 +58,9 @@ class AddUrlHandler(app.BaseRequestHandler):
             obj.url_input = data.get('url_input')
             obj.url_output = data.get('url_output')
             obj.status = True
+            if urlz.is_url_existed(obj.url_input) and urlz.is_url_existed(obj.url_output):
+                self.session.add_flash(u'Url này đã tồn tại', 'error')
+                return self.redirect_to('url/add')
             obj.put()
             self.session.add_flash('Success')
             return self.redirect_to('url/add')

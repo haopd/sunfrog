@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50b22aa8-10b2-454d-bfcb-d5b0529b4f65" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controller/url.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/route/__init__.py" afterPath="$PROJECT_DIR$/app/route/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/frontend/detail.j2" afterPath="$PROJECT_DIR$/app/templates/frontend/detail.j2" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/frontend/view.j2" afterPath="$PROJECT_DIR$/app/templates/frontend/view.j2" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/__init__.py" afterPath="$PROJECT_DIR$/controller/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/db.py" afterPath="$PROJECT_DIR$/controller/db.py" />
     </list>
     <ignored path="save-url.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,11 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/route/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="106" column="37" selection-start-line="106" selection-start-column="37" selection-end-line="106" selection-end-column="37" />
+            <state relative-caret-position="28">
+              <caret line="97" column="49" selection-start-line="97" selection-start-column="49" selection-end-line="97" selection-end-column="49" />
               <folding>
                 <element signature="e#24#38#0" expanded="true" />
               </folding>
@@ -41,12 +45,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detail.j2" pinned="false" current-in-tab="true">
+      <file leaf-file-name="url.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/url.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding>
+                <element signature="e#24#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="196">
+              <caret line="7" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view.j2" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/templates/frontend/view.j2">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="167">
+              <caret line="28" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="detail.j2" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/templates/frontend/detail.j2">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="489">
               <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/db.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="506">
+              <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+              <folding>
+                <element signature="e#24#38#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -68,7 +116,6 @@
       <list>
         <option value="$PROJECT_DIR$/app.yaml" />
         <option value="$PROJECT_DIR$/lib/__init__.py" />
-        <option value="$PROJECT_DIR$/controller/__init__.py" />
         <option value="$PROJECT_DIR$/app/templates/layouts/_footer.j2" />
         <option value="$PROJECT_DIR$/app/templates/layouts/_search.j2" />
         <option value="$PROJECT_DIR$/app/validators.py" />
@@ -84,11 +131,13 @@
         <option value="$PROJECT_DIR$/app/templates/404.j2" />
         <option value="$PROJECT_DIR$/app/templates/500.j2" />
         <option value="$PROJECT_DIR$/app/templates/frontend/edit.j2" />
-        <option value="$PROJECT_DIR$/app/templates/frontend/view.j2" />
         <option value="$PROJECT_DIR$/app/templates/layouts/_header.j2" />
-        <option value="$PROJECT_DIR$/controller/db.py" />
-        <option value="$PROJECT_DIR$/app/route/__init__.py" />
         <option value="$PROJECT_DIR$/app/templates/frontend/detail.j2" />
+        <option value="$PROJECT_DIR$/app/templates/frontend/view.j2" />
+        <option value="$PROJECT_DIR$/controller/db.py" />
+        <option value="$PROJECT_DIR$/controller/__init__.py" />
+        <option value="$PROJECT_DIR$/controller/url.py" />
+        <option value="$PROJECT_DIR$/app/route/__init__.py" />
       </list>
     </option>
   </component>
@@ -172,46 +221,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="url-saver-tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="url-saver-tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="url-saver-tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="url-saver-tool" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="frontend" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -525,7 +534,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6282051" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6282051" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -711,14 +720,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controller/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/layouts/_search.j2" />
     <entry file="file://$PROJECT_DIR$/lib/vendor-packages/formencode/i18n/cs/LC_MESSAGES/FormEncode.po">
       <provider selected="true" editor-type-id="text-editor">
@@ -872,18 +873,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/templates/frontend/detail.j2">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="489">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/frontend/view.j2">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="167">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+          <caret line="28" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controller/db.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+        <state relative-caret-position="506">
+          <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+          <folding>
+            <element signature="e#24#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="7" column="26" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/url.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
             <element signature="e#24#38#0" expanded="true" />
           </folding>
@@ -892,19 +919,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/route/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="106" column="37" selection-start-line="106" selection-start-column="37" selection-end-line="106" selection-end-column="37" />
+        <state relative-caret-position="28">
+          <caret line="97" column="49" selection-start-line="97" selection-start-column="49" selection-end-line="97" selection-end-column="49" />
           <folding>
             <element signature="e#24#38#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/templates/frontend/detail.j2">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

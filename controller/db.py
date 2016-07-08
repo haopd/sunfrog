@@ -13,7 +13,7 @@ class Url(ndb.Model):
         item_obj = Url.get_by_id(((future.get_result().id())))
         if item_obj:
             url_input = ','.join(tokenize_autocomplete(item_obj.url_input))
-            url_output = ','.join(tokenize_autocomplete(item_obj._input))
+            url_output = ','.join(tokenize_autocomplete(item_obj.url_output))
             my_document = search.Document(
                 doc_id=str(future.get_result().id()),
                 fields=[
@@ -25,6 +25,13 @@ class Url(ndb.Model):
             index = search.Index(name="url_fulltextsearch")
             index.put(my_document)
         return rs
+
+    @classmethod
+    def _post_delete_hook(cls, key, future):
+        super(Url, cls)._post_delete_hook(key, future)
+        index = search.Index(name="url_fulltextsearch")
+        index.delete([str(key.id())])
+
 
     url_input = ndb.StringProperty(required=True)
     url_output = ndb.StringProperty(required=True)
