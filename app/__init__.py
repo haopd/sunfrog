@@ -83,17 +83,9 @@ def _handle_500(request, response, exception):
     response.write(html)
 
 
-class MainHandler(BaseRequestHandler):
-    def get(self):
-        self.render_template('/frontend/index.j2')
-
-webapp2_routes = [
-    webapp2.Route('/', handler=MainHandler, name='home')
-]
-
 import app.route
 
-APP = webapp2.WSGIApplication(webapp2_routes+app.route.webapp2_routes, debug=True)
+APP = webapp2.WSGIApplication(app.route.webapp2_routes, debug=True)
 APP.config = webapp2.Config({
     'webapp2_extras.sessions': {
         'secret_key': 'YOUR_SECRET_KEY@1900100co',
