@@ -23,16 +23,6 @@ class TransactionalRequestHandler(webapp2.RequestHandler):
         """
         return jinja2.get_jinja2(app=self.app)
 
-    def render_template(self, _template, **context):
-        """ Render template rồi lưu kết quả vào Response
-        Args:
-            _template (str):
-            **context (dict):
-        """
-        context.setdefault('request', self.request)
-        rv = self.jinja2.render_template(_template, **context)
-        self.response.write(rv)
-
     def render_json(self, data):
         """ Render template rồi lưu kết quả vào Response
         Args:
@@ -58,6 +48,18 @@ class BaseRequestHandler(TransactionalRequestHandler):
     @webapp2.cached_property
     def auth(self):
         return auth.get_auth()
+
+    def render_template(self, _template, **context):
+        """ Render template rồi lưu kết quả vào Response
+        Args:
+            _template (str):
+            **context (dict):
+        """
+        context.setdefault('request', self.request)
+        context.setdefault('session', self.session)
+        rv = self.jinja2.render_template(_template, **context)
+        self.response.write(rv)
+
 
     def dispatch(self):
         try:
