@@ -19,7 +19,8 @@ class AddUrlForm(formencode.Schema):
 
 class ViewUrlHandler(app.BaseRequestHandler):
     def get(self):
-        return self.render_template('frontend/view.j2')
+        list_url = db.Url.query().order(-db.Url.time_created).fetch(limit=20)
+        return self.render_template('frontend/view.j2', list_url=list_url)
 
 
 class AddUrlHandler(app.BaseRequestHandler):
@@ -50,8 +51,28 @@ class MainHandler(app.BaseRequestHandler):
         self.render_template('/frontend/index.j2')
 
 
+class DetailUrlHandler(app.BaseRequestHandler):
+    def get(self, url_id):
+        url = db.Url.get_by_id(int(url_id))
+        self.render_template('/frontend/detail.j2', url=url)
+
+
+class EditUrlHandler(app.BaseRequestHandler):
+    def get(self, url_id):
+        url = db.Url.get_by_id(int(url_id))
+        self.render_template('/frontend/detail.j2', url=url)
+
+
+class DeleteUrlHandler(app.BaseRequestHandler):
+    def get(self, url_id):
+        url = db.Url.get_by_id(int(url_id))
+        self.render_template('/frontend/detail.j2', url=url)
+
 webapp2_routes = [
     webapp2.Route('/', handler=MainHandler, name='home'),
-    webapp2.Route(r'/url', name='url/view', handler=ViewUrlHandler),
+    webapp2.Route(r'/url', name='url', handler=ViewUrlHandler),
+    webapp2.Route(r'/url/<url_id>', name='url/view', handler=DetailUrlHandler),
+    webapp2.Route(r'/url/<url_id>', name='url/edit', handler=EditUrlHandler),
+    webapp2.Route(r'/url/<url_id>', name='url/delete', handler=DeleteUrlHandler),
     webapp2.Route(r'/url/add', name='url/add', handler=AddUrlHandler),
 ]

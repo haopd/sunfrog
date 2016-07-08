@@ -1,6 +1,29 @@
 {% extends "layouts/html.j2" %}
 {% block page_body  %}
-  <blockquote>
-    <h4>URL SAVER</h4>
-  </blockquote>
+  <section>
+    <blockquote>
+      <h4>Xem danh sách</h4>
+    </blockquote>
+  </section>
+  <table>
+    <thead>
+    <tr>
+      <th>Url nguồn</th>
+      <th>Url đích</th>
+      <th>Thời gian tạo</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for url in list_url %}
+      <tr>
+        <td>{{ url.url_input }}</td>
+        <td>{{ url.url_output }}</td>
+        <td>{{ url.time_created }}</td>
+        <td><a href="{{ url_for('url/view', url_id = url.key.id()) }}"><i class="material-icons">send</i></a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}
