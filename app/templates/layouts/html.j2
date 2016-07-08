@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta content="vi" name="language">
+  {#  <meta name="google-signin-client_id" content="{{ config.GOOGLE_SIGNIN_CLIENT_ID }}">#}
+
+  <!--Import Google Icon Font-->
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link type="text/css" rel="stylesheet"
+        href="/_cdn/css/app.css"
+        media="screen,projection"/>
+
+  <link rel="stylesheet"
+        href="//cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css">
+
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css"
+        media="screen,projection"/>
+  <link type="text/css" rel="stylesheet"
+        href="/_cdn/css/app.css"
+        media="screen,projection"/>
+
+  <link rel="stylesheet"
+        href="//cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>{% block html_title %}Welcome to VNP CRM{% endblock %}</title>
+  <meta name="description"
+        content="{% block html_description %}Mô tả của trang{% endblock %}"/>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stupidtable/0.0.1/stupidtable.min.js"></script>
+  <script>dataLayer = [{}];</script>
+<body>
+{% block header %}
+  {% include "layouts/_header.j2" %}
+{% endblock %}
+
+<main>
+  <div class="row">
+    <div class="col l3 hide-on-med-and-down" >
+      {% block left_menu %}
+        {% include "layouts/_lelf_menu.j2" %}
+      {% endblock %}
+    </div>
+    <div class="col s12 m12 l9 border-left">
+
+      {% block page_body %}
+        No content at "page_body" block
+      {% endblock %}
+    </div>
+  </div>
+  {% block footer %}
+    {% include "layouts/_footer.j2" %}
+  {% endblock %}
+</main>
+
+
+</body>
+</html>
