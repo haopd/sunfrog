@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import logging
+import random
+import string
+
 import webapp2
 import app
 import formencode
@@ -9,6 +12,7 @@ from controller import url as urlz
 from google.appengine.api import search
 from google.appengine.ext import ndb
 import re
+from webapp2_extras import jinja2
 
 __author__ = 'datpt'
 _logger = logging.getLogger(__name__)
@@ -117,6 +121,36 @@ class DeleteUrlHandler(app.BaseRequestHandler):
         url.key.delete()
         return self.redirect_to('url')
 
+
+class LoginHandler(webapp2.RequestHandler):
+    @webapp2.cached_property
+    def jinja2(self):
+        """
+        Returns:
+            jinja2.Jinja2
+        """
+        return jinja2.get_jinja2(app=self.app)
+
+    def randomword(self, length):
+        s = string.lowercase + string.digits
+        return ''.join(random.sample(s, length))
+
+    def get(self):
+        rv = self.jinja2.render_template('/frontend/login.j2')
+        self.response.write(rv)
+
+    def post(self):
+        email = self.request.get('email')
+        password = self.request.get('password')
+        if email and password:
+            if (email == 'danghao.cntt@gmail.com' and password == '123!@#hao'):
+                self.response.set_cookie('credentials', self.randomword(20),
+                                         60 * 60)
+                self.redirect_to('home')
+        else:
+            self.redirect_to('login')
+
+
 webapp2_routes = [
     webapp2.Route('/', handler=MainHandler, name='home'),
     webapp2.Route(r'/url', name='url', handler=ViewUrlHandler),
@@ -126,4 +160,5 @@ webapp2_routes = [
     webapp2.Route(r'/url/delete/<url_id>', name='url/delete',
                   handler=DeleteUrlHandler),
     webapp2.Route(r'/url/<url_id>', name='url/view', handler=DetailUrlHandler),
+    webapp2.Route(r'/signin', name='login', handler=LoginHandler),
 ]

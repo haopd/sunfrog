@@ -60,10 +60,11 @@ class BaseRequestHandler(TransactionalRequestHandler):
         rv = self.jinja2.render_template(_template, **context)
         self.response.write(rv)
 
-
     def dispatch(self):
         try:
             ret = super(BaseRequestHandler, self).dispatch()
+            if not self.request.cookies.get('credentials'):
+                self.redirect_to('login')
             return ret
         except:
             raise
