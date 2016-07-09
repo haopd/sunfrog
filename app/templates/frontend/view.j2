@@ -29,7 +29,8 @@
               <a href="{{ url_for('url/edit', url_id= url.key.id()) }}">
                 <i class="material-icons left">mode_edit</i>
               </a>
-              <a href="{{ url_for('url/delete', url_id= url.key.id()) }}">
+              <a href="{{ url_for('url/delete', url_id= url.key.id()) }}"
+                 onclick="return confirm('Bạn chắc chắn muốn xóa?')">
                 <i class="material-icons left">delete_forever</i>
               </a>
             </div>
