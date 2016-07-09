@@ -23,7 +23,8 @@
           <td>{{ account.status }}</td>
           <td>
             <div>
-              <a href="{{ url_for('account/view', account_id = account.key.id()) }}"><i class="material-icons">info</i></a>
+              <a href="{{ url_for('account/detail', acc_id = account.key.id()) }}"><i class="material-icons">info</i></a>
+              <a href="{{ url_for('account/delete', acc_id = account.key.id()) }}"><i class="material-icons">delete_forever</i></a>
             </div>
           </td>
         </tr>

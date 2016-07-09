@@ -4,6 +4,7 @@ import formencode
 from formencode import validators
 import app
 from controller import account
+from controller import db
 
 __author__ = 'datpt'
 _logger = logging.getLogger(__name__)
@@ -25,8 +26,8 @@ class AddAccountForm(formencode.Schema):
 
 class MainAccountHandler(app.BaseRequestHandler):
     def get(self):
-
-        self.render_template('/frontend/account/view.j2')
+        list_account = db.Account.query().order(-db.Account.time_created).fetch()
+        self.render_template('/frontend/account/view.j2', list_account=list_account)
 
 
 class GrantedAccountHandler(app.BaseRequestHandler):
@@ -35,8 +36,17 @@ class GrantedAccountHandler(app.BaseRequestHandler):
 
 
 class ViewDetailAccountHandler(app.BaseRequestHandler):
-    def get(self):
-        self.render_template('/frontend/account/view.j2')
+    def get(self, acc_id):
+        account = db.Account.get_by_id(int(acc_id))
+        self.render_template('/frontend/account/detail.j2', acc=account)
+
+
+class DeleteAccountHandler(app.BaseRequestHandler):
+    def get(self, acc_id):
+        account = db.Account.get_by_id(int(acc_id))
+        account.key.delete()
+        self.session.add_flash(u'Xóa tài khoản %s thành công' % account.username)
+        self.redirect_to('account')
 
 
 class AddAccountHandler(app.BaseRequestHandler):
