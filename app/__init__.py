@@ -8,6 +8,8 @@ from webapp2_extras.auth import InvalidPasswordError
 from webapp2_extras import jinja2,sessions
 import helpers
 import os
+from controller import db
+
 __author__ = 'datpt'
 _logger = logging.getLogger(__name__)
 
@@ -49,6 +51,14 @@ class BaseRequestHandler(TransactionalRequestHandler):
     def auth(self):
         return auth.get_auth()
 
+    @webapp2.cached_property
+    def acc(self):
+        acc_id = self.request.cookies.get('acc_id')
+        acc = None
+        if acc_id:
+            acc = db.Account.get_by_id(int(acc_id))
+        return acc
+
     def render_template(self, _template, **context):
         """ Render template rồi lưu kết quả vào Response
         Args:
@@ -63,7 +73,7 @@ class BaseRequestHandler(TransactionalRequestHandler):
     def dispatch(self):
         try:
             ret = super(BaseRequestHandler, self).dispatch()
-            if not self.request.cookies.get('credentials'):
+            if not self.acc:
                 self.redirect_to('login')
             return ret
         except:

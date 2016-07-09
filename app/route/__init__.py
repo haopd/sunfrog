@@ -3,6 +3,8 @@ import logging
 import random
 import string
 import webapp2
+import webapp2_extras
+from webapp2_extras import jinja2,sessions
 import app
 import formencode
 from formencode import validators
@@ -11,6 +13,7 @@ from controller import url as urlz
 from google.appengine.api import search
 from google.appengine.ext import ndb
 import re
+from controller import utils
 from webapp2_extras import jinja2
 
 __author__ = 'datpt'
@@ -133,6 +136,18 @@ class DeleteUrlHandler(app.BaseRequestHandler):
 
 
 class LoginHandler(webapp2.RequestHandler):
+
+    def __init__(self, request=None, response=None):
+        super(LoginHandler, self).__init__(request, response)
+        self.session_store = webapp2_extras.sessions.get_store(
+            request=self.request)
+        """:type: webapp2_extras.sessions.SessionStore"""
+
+    @webapp2.cached_property
+    def session(self):
+        """Shortcut to access the current session."""
+        return self.session_store.get_session(backend="datastore")
+
     @webapp2.cached_property
     def jinja2(self):
         """
@@ -150,13 +165,26 @@ class LoginHandler(webapp2.RequestHandler):
         self.response.write(rv)
 
     def post(self):
-        email = self.request.get('email')
+        username = self.request.get('username')
         password = self.request.get('password')
-        if email and password:
-            if (email == '123@gmail.com' and password == '1'):
-                self.response.set_cookie('credentials', self.randomword(20),
-                                         60 * 60)
-                self.redirect_to('home')
+        if username and password:
+
+            account = db.Account.query(db.Account.username == username).fetch()
+            if not account:
+                if username == 'admin' and password == '123456789':
+                    admin = db.Account()
+                    pwd = db.Password.create_password(password)
+                    admin.username = username
+                    admin.password = pwd
+                    admin.put()
+                return self.redirect_to('login')
+            account = account[0]
+            if not utils.is_password_match(password, account.password.hash,
+                                       account.password.salt):
+                return self.redirect_to('login')
+            self.response.set_cookie('acc_id', str(account.key.id()),
+                                     60 * 60)
+            return self.redirect_to('home')
         else:
             self.redirect_to('login')
 
@@ -185,6 +213,5 @@ webapp2_routes = [
     webapp2.Route('/account/<acc_id:\d+>/delete',
                   handler=account.DeleteAccountHandler,
                   name='account/delete'),
-
     webapp2.Route('/<web_url>', handler=UrlRedirect),
 ]
