@@ -17,7 +17,7 @@ _logger = logging.getLogger(__name__)
 class AddUrlForm(formencode.Schema):
     allow_extra_fields = True
 
-    url_input = validators.URL()
+    url_input = validators.UnicodeString(not_empty=True)
     url_output = validators.URL()
 
 
@@ -25,6 +25,7 @@ class ViewUrlHandler(app.BaseRequestHandler):
     def get(self):
         search_results = []
         keyword_search = self.request.GET.get('search')
+        offset = self.request.GET.get('offset', 0)
         index = search.Index(name='url_fulltextsearch')
         if keyword_search:
             input = re.sub(r'[^a-zA-Z0-9\n_&]', ' ', keyword_search)
@@ -42,6 +43,8 @@ class ViewUrlHandler(app.BaseRequestHandler):
             list_ids.append(result.doc_id)
         if list_ids:
             list_url = ndb.get_multi([ndb.Key(db.Url, int(k)) for k in list_ids])
+        else:
+            list_url = db.Url.query().order(- db.Url.time_created).fetch(1000)
         return self.render_template('frontend/view.j2', list_url=list_url)
 
 

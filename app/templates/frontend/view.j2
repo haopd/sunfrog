@@ -23,11 +23,26 @@
         <tr>
           <td>{{ url.url_input }}</td>
           <td>{{ url.url_output }}</td>
-          <td>{{ url.time_created }}</td>
-          <td><a href="{{ url_for('url/view', url_id = url.key.id()) }}"><i class="material-icons">send</i></a></td>
+          <td>
+            <div>
+              <a href="{{ url_for('url/view', url_id = url.key.id()) }}"><i class="material-icons">info</i></a>
+              <a href="{{ url_for('url/edit', url_id= url.key.id()) }}">
+                <i class="material-icons left">mode_edit</i>
+              </a>
+              <a href="{{ url_for('url/delete', url_id= url.key.id()) }}">
+                <i class="material-icons left">delete_forever</i>
+              </a>
+            </div>
+          </td>
         </tr>
       {% endif %}
     {% endfor %}
     </tbody>
   </table>
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large" href="{{ url_for('url/add') }}">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
+
 {% endblock %}
