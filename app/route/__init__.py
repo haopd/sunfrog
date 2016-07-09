@@ -83,6 +83,17 @@ class MainHandler(app.BaseRequestHandler):
         self.render_template('/frontend/index.j2')
 
 
+class UrlRedirect(webapp2.RequestHandler):
+    def get(self, web_url):
+        if web_url:
+            page_obj = db.Url.query(db.Url.url_input == web_url).fetch(1)
+            if page_obj:
+                self.redirect(str(page_obj[0].url_output))
+            else:
+                self.abort(404)
+        else:
+            self.abort(404)
+
 class DetailUrlHandler(app.BaseRequestHandler):
     def get(self, url_id):
         url = db.Url.get_by_id(int(url_id))
@@ -152,7 +163,9 @@ class LoginHandler(webapp2.RequestHandler):
 
 
 webapp2_routes = [
-    webapp2.Route('/', handler=MainHandler, name='home'),
+
+    webapp2.Route('/admin', handler=MainHandler, name='home'),
+    webapp2.Route('/admin', handler=MainHandler, name='home'),
     webapp2.Route(r'/url', name='url', handler=ViewUrlHandler),
     webapp2.Route(r'/url/add', name='url/add', handler=AddUrlHandler),
     webapp2.Route(r'/url/edit/<url_id>', name='url/edit',
@@ -161,4 +174,5 @@ webapp2_routes = [
                   handler=DeleteUrlHandler),
     webapp2.Route(r'/url/<url_id>', name='url/view', handler=DetailUrlHandler),
     webapp2.Route(r'/signin', name='login', handler=LoginHandler),
+    webapp2.Route('/<web_url>', handler=UrlRedirect),
 ]
