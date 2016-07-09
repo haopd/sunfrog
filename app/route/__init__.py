@@ -94,6 +94,7 @@ class UrlRedirect(webapp2.RequestHandler):
         else:
             self.abort(404)
 
+
 class DetailUrlHandler(app.BaseRequestHandler):
     def get(self, url_id):
         url = db.Url.get_by_id(int(url_id))
@@ -115,7 +116,6 @@ class EditUrlHandler(app.BaseRequestHandler):
             obj = db.Url.get_by_id(int(url_id))
             obj.url_input = data.get('url_input')
             obj.url_output = data.get('url_output')
-            obj.status = True
             obj.put()
             self.session.add_flash('Success')
             return self.redirect_to('url/view', url_id=url_id)
@@ -163,8 +163,7 @@ class LoginHandler(webapp2.RequestHandler):
 
 
 webapp2_routes = [
-
-    webapp2.Route('/admin', handler=MainHandler, name='home'),
+    webapp2.Route('/', handler=MainHandler, name='home'),
     webapp2.Route('/admin', handler=MainHandler, name='home'),
     webapp2.Route(r'/url', name='url', handler=ViewUrlHandler),
     webapp2.Route(r'/url/add', name='url/add', handler=AddUrlHandler),
