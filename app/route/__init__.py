@@ -65,7 +65,7 @@ class AddUrlHandler(app.BaseRequestHandler):
             obj.url_input = data.get('url_input')
             obj.url_output = data.get('url_output')
             obj.status = True
-            if urlz.is_url_existed(obj.url_input) and urlz.is_url_existed(obj.url_output):
+            if urlz.is_url_existed(obj.url_output):
                 self.session.add_flash(u'Url này đã tồn tại', 'error')
                 return self.redirect_to('url/add')
             obj.put()
