@@ -1,0 +1,28 @@
+{% extends "layouts/html.j2" %}
+{% block page_body  %}
+  <section>
+    <blockquote>
+      <h4>Thêm tài khoản</h4>
+    </blockquote>
+  </section>
+  {% include "_flashes.j2" %}
+  {% import "forms.j2" as forms %}
+  <div class="container">
+    <form  method="post">
+      {{ forms.input_row('username', 'Tên đăng nhập', form_data.username, form_errors.username) }}
+      {{ forms.input_row('password', 'Mật khẩu', form_data.password, form_errors.password, type='password') }}
+      {{ forms.input_row('password_confirm', 'Xác nhận mật khẩu', form_data.password_confirm, form_errors.password_confirm, type='password') }}
+      <button class="btn col s12 waves-effect waves-light btn-signUp"
+              type="submit"
+              name="btn-signUp">Đăng ký
+      </button>
+    </form>
+
+  </div>
+
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large" href="{{ url_for('account/add') }}">
+      <i class="material-icons">person_add</i>
+    </a>
+  </div>
+{% endblock %}

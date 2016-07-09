@@ -2,7 +2,6 @@
 import logging
 import random
 import string
-
 import webapp2
 import app
 import formencode
@@ -154,13 +153,14 @@ class LoginHandler(webapp2.RequestHandler):
         email = self.request.get('email')
         password = self.request.get('password')
         if email and password:
-            if (email == 'danghao.cntt@gmail.com' and password == '123!@#hao'):
+            if (email == '123@gmail.com' and password == '1'):
                 self.response.set_cookie('credentials', self.randomword(20),
                                          60 * 60)
                 self.redirect_to('home')
         else:
             self.redirect_to('login')
 
+from app.route import account
 
 webapp2_routes = [
     webapp2.Route('/', handler=MainHandler, name='home'),
@@ -173,5 +173,12 @@ webapp2_routes = [
                   handler=DeleteUrlHandler),
     webapp2.Route(r'/url/<url_id>', name='url/view', handler=DetailUrlHandler),
     webapp2.Route(r'/signin', name='login', handler=LoginHandler),
+    webapp2.Route('/account', handler=account.MainAccountHandler, name='account'),
+    webapp2.Route('/account/granted', handler=account.GrantedAccountHandler,
+                  name='account/granted'),
+    webapp2.Route('/account/add', handler=account.AddAccountHandler,
+                  name='account/add'),
+    webapp2.Route('/account/<acc_id>', handler=account.ViewDetailAccountHandler,
+                  name='account/detail'),
     webapp2.Route('/<web_url>', handler=UrlRedirect),
 ]

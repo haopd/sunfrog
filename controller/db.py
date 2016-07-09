@@ -2,9 +2,41 @@
 import logging
 from google.appengine.ext import ndb
 from google.appengine.api import search
+from controller import utils
 
 __author__ = 'datpt'
 _logger = logging.getLogger(__name__)
+
+
+class Password(ndb.Model):
+    hash = ndb.StringProperty()
+    salt = ndb.StringProperty()
+
+    @classmethod
+    def create_password(cls, password):
+        """ Ghi nhận password mới vào instance hiện tại
+        Args:
+            password (str|None): password mới
+        """
+        if not password:
+            salt, hash = None, None
+        else:
+            salt = utils.sure_unicode(utils.random_string(6))
+            hash = utils.hash_password(password, salt)
+        entity = cls(hash=hash, salt=salt)
+        entity.put()
+        return entity
+
+
+class Account(ndb.Model):
+    username = ndb.StringProperty(required=True)
+    email = ndb.StringProperty()
+    phone = ndb.StringProperty()
+    password = ndb.StructuredProperty(Password)
+    name = ndb.StringProperty(indexed=False)
+    status = ndb.BooleanProperty(default=True)
+    time_created = ndb.DateTimeProperty(auto_now_add=True)
+    time_modify = ndb.DateTimeProperty(auto_now=True)
 
 
 class Url(ndb.Model):
@@ -31,7 +63,6 @@ class Url(ndb.Model):
         super(Url, cls)._post_delete_hook(key, future)
         index = search.Index(name="url_fulltextsearch")
         index.delete([str(key.id())])
-
 
     url_input = ndb.StringProperty(required=True)
     url_output = ndb.StringProperty(required=True)
