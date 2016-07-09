@@ -1,5 +1,5 @@
-application: tool-save-url
-version: v1
+application: kuti-router
+version: v3
 runtime: python27
 threadsafe: true
 api_version: 1

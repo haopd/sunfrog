@@ -7,5 +7,5 @@ _logger = logging.getLogger(__name__)
 
 
 def is_url_existed(str_url):
-    is_existed = db.Url.query().filter(db.Url.url_output == str_url).fetch()
+    is_existed = db.Url.query().filter(db.Url.url_input == str_url).fetch()
     return bool(is_existed)
