@@ -15,6 +15,9 @@ from google.appengine.ext import ndb
 import re
 from controller import utils
 from webapp2_extras import jinja2
+from app import _config
+import random
+import string
 
 __author__ = 'datpt'
 _logger = logging.getLogger(__name__)
@@ -24,6 +27,12 @@ class AddUrlForm(formencode.Schema):
     allow_extra_fields = True
 
     url_input = validators.UnicodeString(not_empty=True)
+    url_output = validators.URL()
+
+
+class AutoAddUrlForm(formencode.Schema):
+    allow_extra_fields = True
+
     url_output = validators.URL()
 
 
@@ -45,13 +54,14 @@ class ViewUrlHandler(app.BaseRequestHandler):
             ))
         list_ids = []
         list_url = []
+        base_url = _config.base_config['base_url']
         for result in search_results:
             list_ids.append(result.doc_id)
         if list_ids:
             list_url = ndb.get_multi([ndb.Key(db.Url, int(k)) for k in list_ids])
         else:
             list_url = db.Url.query().order(- db.Url.time_created).fetch(1000)
-        return self.render_template('frontend/view.j2', list_url=list_url)
+        return self.render_template('frontend/view.j2', list_url=list_url, base_url=base_url)
 
 
 class AddUrlHandler(app.BaseRequestHandler):
@@ -76,6 +86,42 @@ class AddUrlHandler(app.BaseRequestHandler):
         except formencode.Invalid as e:
             form_errors = e.error_dict
         self.render_template('frontend/add.j2',
+                             form_data=self.request.POST.mixed(),
+                             form_errors=form_errors)
+
+
+class AutoAddUrlHandler(app.BaseRequestHandler):
+
+    def id_generator(self, size=6, chars=string.ascii_uppercase + string.digits + string.ascii_lowercase):
+        """
+        Thanh Niên này dùng để tạo ra URL ngẫu nhiên
+        :param size:
+        :param chars:
+        :return:
+        """
+        return ''.join(random.choice(chars) for _ in range(size))
+
+    def get(self):
+        return self.render_template('frontend/add_auto.j2', form_data=None, form_errors=None)
+
+    def post(self):
+        form_validate = AutoAddUrlForm()
+        form_errors = {}
+        try:
+            data = form_validate.to_python(self.request.POST)
+            obj = db.Url()
+            obj.url_input = self.id_generator()
+            obj.url_output = data.get('url_output')
+            obj.status = True
+            if urlz.is_url_existed(obj.url_input):
+                self.session.add_flash(u'Url này đã tồn tại', 'error')
+                return self.redirect_to('url/add_auto')
+            obj.put()
+            self.session.add_flash('Success')
+            return self.redirect_to('url/add_auto')
+        except formencode.Invalid as e:
+            form_errors = e.error_dict
+        self.render_template('frontend/add_auto.j2',
                              form_data=self.request.POST.mixed(),
                              form_errors=form_errors)
 
@@ -195,6 +241,7 @@ webapp2_routes = [
     webapp2.Route('/admin', handler=MainHandler, name='home'),
     webapp2.Route(r'/url', name='url', handler=ViewUrlHandler),
     webapp2.Route(r'/url/add', name='url/add', handler=AddUrlHandler),
+    webapp2.Route(r'/url/add_auto', name='url/add_auto', handler=AutoAddUrlHandler),
     webapp2.Route(r'/url/edit/<url_id>', name='url/edit',
                   handler=EditUrlHandler),
     webapp2.Route(r'/url/delete/<url_id>', name='url/delete',

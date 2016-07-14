@@ -13,7 +13,6 @@ def is_username_existed(username):
 
 def create_account(username, password, phone=None, email = None, name = None):
     pwd = db.Password.create_password(password)
-    print pwd
     acc = db.Account()
     acc.username = username
     acc.password = pwd

@@ -7,11 +7,16 @@
 {% endmacro %}
 <ul class="collapsible" data-collapsible="expandable">
   <li>
-    <div class="collapsible-header active" style="background-color: #F8F8F8">URL</div>
-    <div class="collapsible-body">
-      <ul class="collection">
-        {{ menu_item('Danh sách', [url_for('url')], url_for('url')) }}
+    <!--<div class="collapsible-header active" style="background-color: #F8F8F8">URL</div>-->
+    <!--<div class="collapsible-body">-->
+      <ul class="collection active ">
+        {{ menu_item('URL Redirect', [url_for('url')], url_for('url')) }}
       </ul>
-    </div>
+
+      <ul class="collection">
+        {{ menu_item('Account Manager', [url_for('account')], url_for('account')) }}
+      </ul>
+
+    <!--</div>-->
   </li>
 </ul>
