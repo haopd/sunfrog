@@ -3,12 +3,9 @@ import logging
 import webapp2
 import webapp2_extras
 from webapp2_extras import auth
-from webapp2_extras.auth import InvalidAuthIdError
-from webapp2_extras.auth import InvalidPasswordError
 from webapp2_extras import jinja2,sessions
 import helpers
 import os
-from controller import db
 
 __author__ = 'datpt'
 _logger = logging.getLogger(__name__)
@@ -55,8 +52,8 @@ class BaseRequestHandler(TransactionalRequestHandler):
     def acc(self):
         acc_id = self.request.cookies.get('acc_id')
         acc = None
-        if acc_id:
-            acc = db.Account.get_by_id(int(acc_id))
+        # if acc_id:
+        #     acc = db.Account.get_by_id(int(acc_id))
         return acc
 
     def render_template(self, _template, **context):
@@ -69,31 +66,6 @@ class BaseRequestHandler(TransactionalRequestHandler):
         context.setdefault('session', self.session)
         rv = self.jinja2.render_template(_template, **context)
         self.response.write(rv)
-
-    def dispatch(self):
-        try:
-            ret = super(BaseRequestHandler, self).dispatch()
-            if not self.acc:
-                self.redirect_to('login')
-            return ret
-        except:
-            raise
-        finally:
-            self.session_store.save_sessions(self.response)
-
-
-def _handle_404(request, response, exception):
-    _logger.exception(exception)
-    html = jinja2.get_jinja2().render_template('404.j2')
-    response.status = 404
-    response.write(html)
-
-
-def _handle_500(request, response, exception):
-    _logger.exception(exception)
-    html = jinja2.get_jinja2().render_template('404.j2')
-    response.status = 500
-    response.write(html)
 
 
 import app.route
@@ -115,5 +87,3 @@ APP.config = webapp2.Config({
         }
     },
 })
-APP.error_handlers[404] = _handle_404
-APP.error_handlers[500] = _handle_500

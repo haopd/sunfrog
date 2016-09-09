@@ -1,19 +1,17 @@
-application: kuti-router
-version: v3
+application: haopd-teesports
+version: a1
 runtime: python27
 threadsafe: true
 api_version: 1
 
 handlers:
-- url: /(.*\.(gif|png|jpg|txt|ico))$
-  static_files: _cdn/\1
-  upload: _cdn/.*\.(gif|png|jpg|txt)$
 
-- url: /_cdn
-  static_dir: _cdn
+- url: /_ah/spi/.*
+  script: app.eapis.ENDPOINTS_API_SERVER
 
 - url: /.*
   script: app.APP
+
 
 libraries:
 - name: pycrypto
@@ -24,14 +22,12 @@ libraries:
   version: latest
 - name: webapp2
   version: "2.5.2"
-
+- name: ssl
+  version: latest
 skip_files:
 - ^(.*/)?#.*#$
 - ^(.*/)?.*~$
 - ^(.*/)?.*\.py[co]$
 - ^(.*/)?.*/RCS/.*$
 - ^(.*/)?\..*$
-- ^_cdn/sass/(.*/)*.*$
-- ^_cdn/css/app.css.map
-
 
