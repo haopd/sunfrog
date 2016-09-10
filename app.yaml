@@ -1,5 +1,5 @@
-application: haopd-teesports
-version: h1
+application: sun-backends
+version: h2
 runtime: python27
 threadsafe: true
 api_version: 1

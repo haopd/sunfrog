@@ -1,0 +1,9 @@
+total_storage_limit: 500M
+queue:
+- name: upload-data-sheets
+  max_concurrent_requests: 10
+  bucket_size: 40
+  rate: 20/s
+
+
+
