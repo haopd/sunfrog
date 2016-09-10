@@ -34,17 +34,22 @@ class SunApi(remote.Service):
             campaign_href = tds[2].find_all("a")[0].get('href')
             campaign_sold = int(tds[4].text)
             try:
-                campaign_affiliate = float((tds[7].text).replace("$", ""))
+                if '$' not in (tds[7].text):
+                    campaign_affiliate = 0
+                else:
+                    campaign_affiliate = float((tds[7].text).replace("$", ""))
             except:
                 campaign_affiliate = 0
             try:
                 campaign_artist = float((tds[8].text).replace("$", ""))
             except:
                 campaign_artist = 0
-            campaign_datas = [campaign_sold, campaign_affiliate, campaign_artist]
+            campaign_totals = campaign_affiliate+campaign_artist
+            campaign_datas = [campaign_sold, campaign_affiliate, campaign_artist, campaign_totals]
+
             if campaign_title in data:
                 old_data = data[campaign_title]
-                new_data = [old_data[0]+campaign_sold, old_data[1]+campaign_affiliate, old_data[2]+campaign_artist]
+                new_data = [old_data[0]+campaign_sold, old_data[1]+campaign_affiliate, old_data[2]+campaign_artist, old_data[3]+campaign_totals]
                 data[campaign_title] = new_data
             else:
                 data[campaign_title] = campaign_datas
@@ -54,6 +59,5 @@ class SunApi(remote.Service):
     def pushDataToGoogleSheet(self, data):
         import gae_sheet
         if data:
-            url = "https://docs.google.com/spreadsheets/d/1X6XfgRzkMgig_E7C26U6MQa9uxiWiWDdaHIaFhqj5wY/edit#gid=0"
             for k, v in data.items():
                 gae_sheet.run(k, v)

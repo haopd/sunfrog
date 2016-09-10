@@ -14,4 +14,4 @@ def run(k, v):
     gc = gspread.authorize(credentials)
     wks = gc.open_by_key('1UOY5RcVK1bRwdlF1Cu2vgwbnyLpzcOsdQtERlMS8jVo')
     ws = wks.get_worksheet(0)
-    ws.append_row([k, v[0], v[1], v[2]])
+    ws.append_row([k, v[0], v[1], v[2], v[3]])
